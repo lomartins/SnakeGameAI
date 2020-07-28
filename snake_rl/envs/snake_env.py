@@ -7,10 +7,9 @@ from enum import Enum
 import random
 import pygame
 import pygame.locals
-import math
-import time
+import os
 
-snake_image = pygame.image.load('snake.jpg')
+snake_image = pygame.image.load(os.path.dirname(__file__) + '/snake.jpg')
 snake_image = pygame.transform.scale(snake_image, (320, 280))
 
 

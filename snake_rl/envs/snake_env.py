@@ -14,8 +14,8 @@ snake_image = pygame.transform.scale(snake_image, (320, 280))
 
 
 def on_grid_random(max_xy):
-    x = random.randint(10, max_xy[0] - 10)
-    y = random.randint(10, max_xy[1] - 10)
+    x = random.randint(20, max_xy[0] - 20)
+    y = random.randint(20, max_xy[1] - 20)
     return x // 10 * 10, y // 10 * 10
 
 
@@ -120,7 +120,12 @@ class SnakeEnv(gym.Env, ABC):
         self._hunger_steps += 1
         self.distance = get_distance(self.snake[0], self.apple_pos)
 
-        self.my_direction = Actions(action)
+        bonus_reward = 0
+
+        if self.my_direction.value - 2 != action != self.my_direction.value + 2:
+            self.my_direction = Actions(action)
+        else:
+            bonus_reward -= 100
 
         if self.my_direction == Actions.UP:
             self.snake[0] = (self.snake[0][0], self.snake[0][1] - 10)
@@ -144,7 +149,7 @@ class SnakeEnv(gym.Env, ABC):
         if self.snake[0] in self.wall:
             self._game_over = True
 
-        step_reward = self._calculate_reward()
+        step_reward = self._calculate_reward() + bonus_reward
         self._total_reward += step_reward
 
         self.previous_distance = self.distance

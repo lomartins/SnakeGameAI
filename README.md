@@ -10,3 +10,6 @@ and pygame for the game.
 To run the project you need to install the requirements in requirements.txt.
 
 <code>pip install -r requirements.txt</code>
+<hr />
+Credits to:
+@lucaomartins & @brunotsantos1997
